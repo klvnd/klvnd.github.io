@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Scroll Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .gallery-container {
+            display: flex;
+            align-items: center;
+        }
+        .gallery {
+            display: flex;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            width: 600px;
+        }
+        .gallery img {
+            max-width: 100%;
+            margin: 10px;
+        }
+        .button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <button class="button" id="prevButton">&lt;</button>
+        <div class="gallery" id="gallery">
+            <img src="assets/img/GithubUser.png" alt="Image 1">
+            <img src="assets/img/mobillistrik.png" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+            <img src="image4.jpg" alt="Image 4">
+        </div>
+        <button class="button" id="nextButton">&gt;</button>
+    </div>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+
+        prevButton.addEventListener('click', () => {
+            gallery.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        nextButton.addEventListener('click', () => {
+            gallery.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+
+        gallery.addEventListener('scroll', () => {
+            prevButton.disabled = gallery.scrollLeft === 0;
+            nextButton.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth;
+        });
+
+        // Initial check for button states
+        prevButton.disabled = gallery.scrollLeft === 0;
+        nextButton.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth;
+    </script>
+</body>
+</html>
